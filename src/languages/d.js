@@ -3,6 +3,7 @@ Language: D
 Author: Aleksandar Ruzicic <aleksandar@ruzicic.info>
 Description: D is a language with C-like syntax and static typing. It pragmatically combines efficiency, control, and modeling power, with safety and programmer productivity.
 Version: 1.0a
+Website: https://dlang.org
 Date: 2012-04-08
 */
 
@@ -200,7 +201,7 @@ function(hljs) {
    * @type {Object}
    */
   var D_HASHBANG_MODE = {
-    className: 'shebang',
+    className: 'meta',
     begin: '^#!',
     end: '$',
     relevance: 5
@@ -212,7 +213,7 @@ function(hljs) {
    * @type {Object}
    */
   var D_SPECIAL_TOKEN_SEQUENCE_MODE = {
-    className: 'preprocessor',
+    className: 'meta',
     begin: '#(line)',
     end: '$',
     relevance: 5
@@ -233,13 +234,14 @@ function(hljs) {
    *
    * @type {Object}
    */
-  var D_NESTING_COMMENT_MODE = {
-    className: 'comment',
-    begin: '\\/\\+',
-    contains: ['self'],
-    end: '\\+\\/',
-    relevance: 10
-  };
+  var D_NESTING_COMMENT_MODE = hljs.COMMENT(
+    '\\/\\+',
+    '\\+\\/',
+    {
+      contains: ['self'],
+      relevance: 10
+    }
+  );
 
   return {
     lexemes: hljs.UNDERSCORE_IDENT_RE,

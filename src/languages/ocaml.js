@@ -3,7 +3,10 @@ Language: OCaml
 Author: Mehdi Dogguy <mehdi@dogguy.org>
 Contributors: Nicolas Braud-Santoni <nicolas.braud-santoni@ens-cachan.fr>, Mickael Delahaye <mickael.delahaye@gmail.com>
 Description: OCaml language definition.
+Website: https://ocaml.org
+Category: functional
 */
+
 function(hljs) {
   /* missing support for heredoc-like string (OCaml 4.0.2+) */
   return {
@@ -13,7 +16,7 @@ function(hljs) {
         'and as assert asr begin class constraint do done downto else end ' +
         'exception external for fun function functor if in include ' +
         'inherit! inherit initializer land lazy let lor lsl lsr lxor match method!|10 method ' +
-        'mod module|5 mutable|5 new object of open! open or private rec sig|5 struct ' +
+        'mod module mutable new object of open! open or private rec sig struct ' +
         'then to try type val! val virtual when while with ' +
         /* camlp4 */
         'parser value',
@@ -23,28 +26,31 @@ function(hljs) {
         /* (some) types in Pervasives */
         'in_channel out_channel ref',
       literal:
-        'true false',
+        'true false'
     },
-    illegal: /\/\//,
+    illegal: /\/\/|>>/,
     lexemes: '[a-z_]\\w*!?',
     contains: [
       {
         className: 'literal',
-        begin: '\\[(\\|\\|)?\\]|\\(\\)'
+        begin: '\\[(\\|\\|)?\\]|\\(\\)',
+        relevance: 0
       },
-      {
-        className: 'comment',
-        begin: '\\(\\*', end: '\\*\\)',
-        contains: ['self'],
-      },
+      hljs.COMMENT(
+        '\\(\\*',
+        '\\*\\)',
+        {
+          contains: ['self']
+        }
+      ),
       { /* type variable */
         className: 'symbol',
-        begin: '\'[A-Za-z_](?!\')[\\w\']*',
+        begin: '\'[A-Za-z_](?!\')[\\w\']*'
         /* the grammar is ambiguous on how 'a'b should be interpreted but not the compiler */
       },
       { /* polymorphic variant */
-        className: 'tag',
-        begin: '`[A-Z][\\w\']*',
+        className: 'type',
+        begin: '`[A-Z][\\w\']*'
       },
       { /* module or constructor */
         className: 'type',
@@ -52,10 +58,9 @@ function(hljs) {
         relevance: 0
       },
       { /* don't color identifiers, but safely catch all identifiers with '*/
-        begin: '[a-z_]\\w*\'[\\w\']*',
-        relevance: 0
+        begin: '[a-z_]\\w*\'[\\w\']*', relevance: 0
       },
-      hljs.inherit(hljs.APOS_STRING_MODE, {className: 'char', relevance: 0}),
+      hljs.inherit(hljs.APOS_STRING_MODE, {className: 'string', relevance: 0}),
       hljs.inherit(hljs.QUOTE_STRING_MODE, {illegal: null}),
       {
         className: 'number',
@@ -65,6 +70,9 @@ function(hljs) {
           '0[bB][01_]+[Lln]?|' +
           '[0-9][0-9_]*([Lln]|(\\.[0-9_]*)?([eE][-+]?[0-9_]+)?)?)',
         relevance: 0
+      },
+      {
+        begin: /[-=]>/ // relevance booster
       }
     ]
   }

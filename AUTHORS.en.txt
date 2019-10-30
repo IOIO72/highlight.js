@@ -1,8 +1,16 @@
-﻿Syntax highlighting with language autodetection.
+Syntax highlighting with language autodetection.
 
 URL:   https://highlightjs.org/
 
-Core developers (in order of appearance):
+Current core developers (alphabetical):
+
+- Gidi Meir Morris <gidi@gidi.io>
+- Jan T. Sott <git@idleberg.com>
+- Li Xuanji <xuanji@gmail.com>
+- Marcos Cáceres <marcos@marcosc.com>
+- Sang Dang <sang.dang@polku.io>
+
+Former maintainers:
 
 - Ivan Sagalaev (original author) <maniac@softwaremaniacs.org>
 - Jeremy Hull <sourdrums@gmail.com>
@@ -59,7 +67,7 @@ Contributors:
 - Joe Cheng <joe@rstudio.org>
 - Angel G. Olloqui <angelgarcia.mail@gmail.com>
 - Jason Tate <adminz@web-cms-designs.com>
-- Sergey Tikhomirov <me@stikhomirov.com>
+- Sergey Tikhomirov <sergey@tikhomirov.io>
 - Marc Fornos <marc.fornos@gmail.com>
 - Yoshihide Jimbo <yjimbo@gmail.com>
 - Casey Duncan <casey.duncan@gmail.com>
@@ -94,7 +102,6 @@ Contributors:
 - Bram de Haan <info@atelierbramdehaan.nl>
 - Seongwon Lee <dlimpid@gmail.com>
 - Zaven Muradyan <megalivoithos@gmail.com>
-- Jan T. Sott <git@idleberg.com>
 - Brent Bradbury <brent@brentium.com>
 - Martin Dilling-Hansen <martindlling@gmail.com>
 - Ilya Vassilevsky <vassilevsky@gmail.com>
@@ -141,4 +148,136 @@ Contributors:
 - Jen Evers-Corvina <jen@sevvie.net>
 - Kassio Borges <kassioborgesm@gmail.com>
 - Cedric Sohrauer <sohrauer@googlemail.com>
-- Mickael Delahaye <mickael.delahaye@gmail.com>
+- Mickaël Delahaye <mickael.delahaye@gmail.com>
+- Hakan Özler <ozler.hakan@gmail.com>
+- Trey Shugart <treshugart@gmail.com>
+- Vincent Zurczak <vzurczak@linagora.com>
+- Adam Joseph Cook <adam.joseph.cook@gmail.com>
+- Edwin Dalorzo <edwin@dalorzo.org>
+- mucaho <mkucko@gmail.com>
+- Dennis Titze <dennis.titze@gmail.com>
+- Jon Evans <jon@craftyjon.com>
+- Brian Quistorff <bquistorff@gmail.com>
+- Jonathan Suever <suever@gmail.com>
+- Alexis Hénaut <alexis@henaut.net>
+- Chris Kiehl <audionautic@gmail.com>
+- Peter Piwowarski <oldlaptop654@aol.com>
+- Kenta Sato <bicycle1885@gmail.com>
+- Anthony Scemama <scemama@irsamc.ups-tlse.fr>
+- Taufik Nurrohman <latitudu.latitudu@gmail.com>
+- Pedro Oliveira <kanytu@gmail.com>
+- Gu Yiling <justice360@gmail.com>
+- Thomas Applencourt <thomas.applencourt@irsamc.ups-tlse.fr>
+- Andrew Farmer <ahfarmer@gmail.com>
+- Sergey Mashkov <cy6erGn0m@gmail.com>
+- Raivo Laanemets <raivo@infdot.com>
+- Kenneth Fuglsang <kfuglsang@gmail.com>
+- David Anson <david@dlaa.me>
+- Louis Barranqueiro <louis.barranqueiro@gmail.com>
+- Tim Schumacher <tim@datenknoten.me>
+- Lucas Werkmeister <mail@lucaswerkmeister.de>
+- Dan Panzarella <alsoelp@gmail.com>
+- Bruno Dias <bruno.r.dias@gmail.com>
+- Jay Strybis <jay.strybis@gmail.com>
+- Guillaume Gomez <guillaume1.gomez@gmail.com>
+- Janis Voigtländer <janis.voigtlaender@gmail.com>
+- Dirk Kirsten <dk@basex.org>
+- MY Sun <simonmysun@gmail.com>
+- Vadimtro <vadimtro@yahoo.com>
+- Benjamin Auder <benjamin.auder@gmail.com>
+- Dotan Dimet <dotan@corky.net>
+- Manh Tuan <junookyo@gmail.com>
+- Philippe Charrière <ph.charriere@gmail.com>
+- Stefan Bechert <stefan.bechert@gmx.net>
+- Samuel Reed <sam@bitmex.com>
+- Yury Selivanov <yselivanov@gmail.com>
+- Tsuyusato Kitsune <make.just.on@gmail.com>
+- Mick MacCallum <micksmaccallum@gmail.com>
+- Kristoffer Gronlund <kgronlund@suse.com>
+- Søren Enevoldsen <senevoldsen90@gmail.com>
+- Daniel Rosenwasser <DanielRosenwasser@users.noreply.github.com>
+- Ladislav Prskavec <ladislav@prskavec.net>
+- Jan Kühle <jkuehle90@gmail.com>
+- Stefan Wienert <stwienert@gmail.com>
+- Nikita Savchenko <zitros.lab@gmail.com>
+- Stefania Mellai <s.mellai@arduino.cc>
+- Nebuleon Fumika <nebuleon.fumika@gmail.com>
+- prince <MC.prince.0203@gmail.com>
+- Brendan Rocks <rocks.brendan@gmail.com>
+- Raphaël Assénat <raph@raphnet.net>
+- Matt Evans <matt@aptech.com>
+- Martin Braun <martin.braun@ettus.com>
+- Boris Cherny <boris@performancejs.com>
+- John Foster <jfoster@esri.com>
+- Robert Dodier <robert.dodier@gmail.com>
+- Anthony Dugois <dev.anthonydugois@gmail.com>
+- Qeole <qeole@outlook.com>
+- Denis Ciccale <dciccale@gmail.com>
+- Michael Johnston <lastobelus@gmail.com>
+- Taras <oxdef@oxdef.info>
+- Philipp Wolfer <ph.wolfer@gmail.com>
+- Mikko Kouhia <mikko.kouhia@iki.fi>
+- Billy Quith <chinbillybilbo@gmail.com>
+- Herbert Shin <initbar@protonmail.ch>
+- Tristano Ajmone <tajmone@gmail.com>
+- Taisuke Fujimoto <temp-impl@users.noreply.github.com>
+- Boone Severson <boone.severson@gmail.com>
+- Victor Zhou <OiCMudkips@users.noreply.github.com>
+- Lars Schulna <kartoffelbrei.mit.muskatnuss@gmail.org>
+- Jacob Childress <jacobc@gmail.com>
+- Gavin Siu <gavsiu@gmail.com>
+- Builder's Brewery <buildersbrewery@gmail.com>
+- Sergey Bronnikov <sergeyb@bronevichok.ru>
+- Joe Eli McIlvain <joe.eli.mac@gmail.org>
+- Stephan Boyer <stephan@stephanboyer.com>
+- Alex McKibben <alex@nullscope.net>
+- Daniel Gamage <hellodanielgamage@gmail.com>
+- Matthew Daly <matthewbdaly@gmail.com>
+- Magnus Madsen <mmadsen@uwaterloo.ca>
+- Camil Staps <info@camilstaps.nl>
+- Alexander Lichter <manniL@gmx.net>
+- Nicolas Le Gall <contact@nlegall.fr>
+- Kenton Hamaluik <kentonh@gmail.com>
+- Marvin Saignat <contact@zgmrvn.com>
+- Michael Rodler <contact@f0rki.at>
+- Sergey Sobko <s.sobko@profitware.ru>
+- Hale Chan <halechan@qq.com>
+- Kasper Andersen <kma_untrusted@protonmail.com>
+- Philipp A. <flying-sheep@web.de>
+- Guannan Wei <guannanwei@outlook.com>
+- Sam Wu <samsam2310@gmail.com>
+- Ike Ku <dempfi@yahoo.com>
+- Andres Täht <andres.taht@gmail.com>
+- Rene Saarsoo <nene@triin.net>
+- Jordi Petit <jordi.petit@gmail.com>
+- Raphaël Parrëe <rparree@edc4it.com>
+- Joël Porquet <joel@porquet.org>
+- Alex Arslan <ararslan@comcast.net>
+- Stanislav Belov <stbelov@gmail.com>
+- Ivan Dementev <ivan_div@mail.ru>
+- Nicolas LLOBERA <nllobera@gmail.com>
+- Morten Piibeleht <morten.piibeleht@gmail.com>
+- Martin Clausen <martin.clausene@gmail.com>
+- Arctic Ice Studio <development@arcticicestudio.com>
+- Google Inc. (David Benjamin) <davidben@google.com>
+- Ahmad Awais <me@AhmadAwais.com>
+- Duncan Paterson <duncan@exist-db.org>
+- Tristian Kelly <tristian.kelly560@gmail.com>
+- Melissa Geels <melissa@nimble.tools>
+- Dmitriy Tarasov <dimatar@gmail.com>
+- Egor Rogov <e.rogov@postgrespro.ru>
+- Meseta <meseta@gmail.com>
+- Harmon <Harmon.Public@gmail.com>
+- Eric Bailey <eric.w.bailey@gmail.com>
+- Gustavo Costa <gusbemacbe@gmail.com>
+- Antoine Boisier-Michaud <aboisiermichaud@gmail.com>
+- Alejandro Isaza <al@isaza.ca>
+- Laurent Voullemier <laurent.voullemier@gmail.com>
+- Sean T. Allen <sean@monkeysnatchbanana.com>
+- Greg Cline <gregrcline@gmail.com>
+- Sejin Jeon <jinaidy93@gmail.com>
+- Taif Alimov <inzeppelin@gmail.com>
+- Yuri Mazursky <mail@colomolome.com>
+- Carl Baxter <carl@cbax.tech>
+- Thomas Reichel <tom.p.reichel@gmail.com>
+

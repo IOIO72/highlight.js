@@ -19,7 +19,7 @@ Each mode consists of:
 * …exotic stuff like another language inside a language
 
 The parser's work is to look for modes and their keywords.
-Upon finding it wraps them into the markup ``<span class="...">...</span>``
+Upon finding, it wraps them into the markup ``<span class="...">...</span>``
 and puts the name of the mode ("string", "comment", "number")
 or a keyword group name ("keyword", "literal", "built-in") as the span's class name.
 
@@ -28,7 +28,7 @@ General syntax
 --------------
 
 A language definition is a JavaScript object describing the default parsing mode for the language.
-This default mode contain sub-modes which in turn contain other sub-modes effectively making the language definition a tree of modes.
+This default mode contains sub-modes which in turn contain other sub-modes, effectively making the language definition a tree of modes.
 
 Here's an example:
 
@@ -42,15 +42,17 @@ Here's an example:
         className: 'string',
         begin: '"', end: '"'
       },
-      {
-        className: 'comment',
-        begin: '/*', end: '*/',
-        contains: [
-          {
-            className: 'doc', begin: '@\\w+'
-          }
-        ]
-      }
+      hljs.COMMENT(
+        '/\\*', // begin
+        '\\*/', // end
+        {
+          contains: [
+            {
+              className: 'doc', begin: '@\\w+'
+            }
+          ]
+        }
+      )
     ]
   }
 
@@ -92,7 +94,7 @@ Different lexing rules can be defined by the ``lexemes`` attribute:
 ::
 
   {
-    lexemes '-[a-z]+',
+    lexemes: '-[a-z]+',
     keywords: '-import -export'
   }
 
@@ -123,6 +125,23 @@ This is commonly used to define nested modes:
     begin: '{', end: '}',
     contains: [hljs.QUOTE_STRING_MODE, 'self']
   }
+
+
+Comments
+--------
+
+To define custom comments it is recommended to use a built-in helper function ``hljs.COMMENT`` instead of describing the mode directly, as it also defines a few default sub-modes that improve language detection and do other nice things.
+
+Parameters for the function are:
+
+::
+
+  hljs.COMMENT(
+    begin,      // begin regex
+    end,        // end regex
+    extra       // optional object with extra attributes to override defaults
+                // (for example {relevance: 0})
+  )
 
 
 Markup generation
@@ -237,6 +256,23 @@ Pre-defined modes and regular expressions
 
 Many languages share common modes and regular expressions. Such expressions are defined in core highlight.js code
 at the end under "Common regexps" and "Common modes" titles. Use them when possible.
+
+
+Regular Expression Features
+---------------------------
+
+The goal of Highlight.js is to support whatever regex features Javascript itself supports.  You're using real regular expressions, use them responsibly.  That said, due to the design of the parser, there are some caveats.  These are addressed below.
+
+Things we support now that we did not always:
+
+* look-ahead matching for `begin` (#2135)
+* look-ahead matching for `illegal` (#2135)
+* back-references within your regex (#1897)
+
+Things we currently know are still issues:
+
+* look-ahead matching for `end` matchers
+* look-behind matching (when JS supports it) for `end` matchers
 
 
 Contributing

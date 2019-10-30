@@ -1,6 +1,7 @@
 /*
 Language: Brainfuck
 Author: Evgeny Stepanischev <imbolk@gmail.com>
+Website: https://esolangs.org/wiki/Brainfuck
 */
 
 function(hljs){
@@ -12,13 +13,14 @@ function(hljs){
   return {
     aliases: ['bf'],
     contains: [
-      {
-        className: 'comment',
-        begin: '[^\\[\\]\\.,\\+\\-<> \r\n]',
-        returnEnd: true,
-        end: '[\\[\\]\\.,\\+\\-<> \r\n]',
-        relevance: 0
-      },
+      hljs.COMMENT(
+        '[^\\[\\]\\.,\\+\\-<> \r\n]',
+        '[\\[\\]\\.,\\+\\-<> \r\n]',
+        {
+          returnEnd: true,
+          relevance: 0
+        }
+      ),
       {
         className: 'title',
         begin: '[\\[\\]]',
@@ -31,7 +33,7 @@ function(hljs){
       },
       {
         // this mode works as the only relevance counter
-        begin: /\+\+|\-\-/, returnBegin: true,
+        begin: /(?:\+\+|\-\-)/,
         contains: [LITERAL]
       },
       LITERAL

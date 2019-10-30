@@ -1,7 +1,10 @@
 /*
 Language: VBScript
+Description: VBScript ("Microsoft Visual Basic Scripting Edition") is an Active Scripting language developed by Microsoft that is modeled on Visual Basic.
 Author: Nikita Ledyaev <lenikita@yandex.ru>
 Contributors: Michal Gabrukiewicz <mgabru@gmail.com>
+Website: https://en.wikipedia.org/wiki/VBScript
+Category: scripting
 */
 
 function(hljs) {
@@ -31,11 +34,13 @@ function(hljs) {
     illegal: '//',
     contains: [
       hljs.inherit(hljs.QUOTE_STRING_MODE, {contains: [{begin: '""'}]}),
-      {
-        className: 'comment',
-        begin: /'/, end: /$/,
-        relevance: 0
-      },
+      hljs.COMMENT(
+        /'/,
+        /$/,
+        {
+          relevance: 0
+        }
+      ),
       hljs.C_NUMBER_MODE
     ]
   };

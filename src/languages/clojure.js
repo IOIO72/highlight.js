@@ -2,13 +2,16 @@
 Language: Clojure
 Description: Clojure syntax (based on lisp.js)
 Author: mfornos
+Contributors: Martin Clausen <martin.clausene@gmail.com>
+Website: https://clojure.org
+Category: lisp
 */
 
 function(hljs) {
   var keywords = {
-    built_in:
+    'builtin-name':
       // Clojure keywords
-      'def cond apply if-not if-let if not not= = < > <= >= == + / * - rem '+
+      'def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem '+
       'quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? '+
       'set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? '+
       'class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? '+
@@ -50,59 +53,52 @@ function(hljs) {
     relevance: 0
   };
   var STRING = hljs.inherit(hljs.QUOTE_STRING_MODE, {illegal: null});
-  var COMMENT = {
-    className: 'comment',
-    begin: ';', end: '$',
-    relevance: 0
+  var COMMENT = hljs.COMMENT(
+    ';',
+    '$',
+    {
+      relevance: 0
+    }
+  );
+  var LITERAL = {
+    className: 'literal',
+    begin: /\b(true|false|nil)\b/
   };
   var COLLECTION = {
-    className: 'collection',
     begin: '[\\[\\{]', end: '[\\]\\}]'
   };
   var HINT = {
     className: 'comment',
     begin: '\\^' + SYMBOL_RE
   };
-  var HINT_COL = {
-    className: 'comment',
-    begin: '\\^\\{', end: '\\}'
-
-  };
+  var HINT_COL = hljs.COMMENT('\\^\\{', '\\}');
   var KEY = {
-    className: 'attribute',
-    begin: '[:]' + SYMBOL_RE
+    className: 'symbol',
+    begin: '[:]{1,2}' + SYMBOL_RE
   };
   var LIST = {
-    className: 'list',
     begin: '\\(', end: '\\)'
   };
   var BODY = {
     endsWithParent: true,
-    keywords: {literal: 'true false nil'},
     relevance: 0
   };
   var NAME = {
     keywords: keywords,
     lexemes: SYMBOL_RE,
-    className: 'keyword', begin: SYMBOL_RE,
+    className: 'name', begin: SYMBOL_RE,
     starts: BODY
   };
+  var DEFAULT_CONTAINS = [LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, LITERAL, SYMBOL];
 
-  LIST.contains = [{className: 'comment', begin: 'comment'}, NAME, BODY];
-  BODY.contains = [LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, SYMBOL];
-  COLLECTION.contains = [LIST, STRING, HINT, COMMENT, KEY, COLLECTION, NUMBER, SYMBOL];
+  LIST.contains = [hljs.COMMENT('comment', ''), NAME, BODY];
+  BODY.contains = DEFAULT_CONTAINS;
+  COLLECTION.contains = DEFAULT_CONTAINS;
+  HINT_COL.contains = [COLLECTION];
 
   return {
     aliases: ['clj'],
     illegal: /\S/,
-    contains: [
-      COMMENT,
-      LIST,
-      {
-        className: 'prompt',
-        begin: /^=> /,
-        starts: {end: /\n\n|\Z/} // eat up prompt output to not interfere with the illegal
-      }
-    ]
+    contains: [LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, LITERAL]
   }
 }

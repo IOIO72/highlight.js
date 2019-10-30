@@ -1,48 +1,43 @@
 'use strict';
 
-var fs      = require('fs');
-var utility = require('../utility');
+const _       = require('lodash');
+const utility = require('../utility');
 
-var blocks;
+describe('custom markup', () => {
+  before(() => {
+    const testHTML = document.querySelectorAll('#custom-markup .hljs');
 
-describe('custom markup', function() {
-  before(function() {
-    blocks = document.querySelectorAll('.hljs');
+    this.blocks = _.map(testHTML, 'innerHTML');
   });
 
-  it('should replace tabs', function() {
-    var filename = utility.buildPath('expect', 'tabreplace.txt'),
+  it('should replace tabs', () => {
+    const filename = utility.buildPath('fixtures', 'expect',
+                                       'tabreplace.txt'),
+          actual   = this.blocks[0];
 
-        expected = fs.readFileSync(filename, 'utf-8'),
-        actual   = blocks[4].innerHTML;
-
-    actual.should.equal(expected);
+    return utility.expectedFile(filename, 'utf-8', actual);
   });
 
-  it('should keep custom markup', function() {
-    var filename = utility.buildPath('expect', 'custommarkup.txt'),
+  it('should keep custom markup', () => {
+    const filename = utility.buildPath('fixtures', 'expect',
+                                       'custommarkup.txt'),
+          actual   = this.blocks[1];
 
-        expected = fs.readFileSync(filename, 'utf-8'),
-        actual   = blocks[5].innerHTML;
-
-    actual.should.equal(expected);
+    return utility.expectedFile(filename, 'utf-8', actual);
   });
 
-  it('should keep custom markup and replace tabs', function() {
-    var filename = utility.buildPath('expect', 'customtabreplace.txt'),
+  it('should keep custom markup and replace tabs', () => {
+    const filename = utility.buildPath('fixtures', 'expect',
+                                       'customtabreplace.txt'),
+          actual   = this.blocks[2];
 
-        expected = fs.readFileSync(filename, 'utf-8'),
-        actual   = blocks[6].innerHTML;
-
-    actual.should.equal(expected);
+    return utility.expectedFile(filename, 'utf-8', actual);
   });
 
-  it('should keep the same amount of void elements (<br>, <hr>, ...)', function() {
-    var filename = utility.buildPath('expect', 'brInPre.txt'),
+  it('should keep the same amount of void elements (<br>, <hr>, ...)', () => {
+    const filename = utility.buildPath('fixtures', 'expect', 'brInPre.txt'),
+          actual   = this.blocks[3];
 
-        expected = fs.readFileSync(filename, 'utf-8'),
-        actual   = blocks[7].innerHTML;
-
-    actual.should.equal(expected);
+    return utility.expectedFile(filename, 'utf-8', actual);
   });
 });

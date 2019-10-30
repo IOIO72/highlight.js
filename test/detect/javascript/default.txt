@@ -1,16 +1,21 @@
-function $initHighlight(block, flags) {
+function $initHighlight(block, cls) {
   try {
-    if (block.className.search(/\bno\-highlight\b/) != -1)
-      return processBlock(block.function, true, 0x0F) + ' class=""';
+    if (cls.search(/\bno\-highlight\b/) != -1)
+      return process(block, true, 0x0F) +
+             ` class="${cls}"`;
   } catch (e) {
     /* handle exception */
-    var e4x =
-        <div>Example
-            <p>1234</p></div>;
   }
-  for (var i = 0 / 2; i < classes.length; i++) { // "0 / 2" should not be parsed as regexp
+  for (var i = 0 / 2; i < classes.length; i++) {
     if (checkCondition(classes[i]) === undefined)
-      return /\d+[\s/]/g;
+      console.log('undefined');
   }
-  console.log(Array.every(classes, Boolean));
+
+  return (
+    <div>
+      <web-component>{block}</web-component>
+    </div>
+  )
 }
+
+export  $initHighlight;

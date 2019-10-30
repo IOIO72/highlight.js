@@ -1,6 +1,8 @@
 /*
 Language: Tcl
+Description: Tcl is a very simple programming language.
 Author: Radek Liska <radekliska@gmail.com>
+Website: https://www.tcl.tk/about/language.html
 */
 
 function(hljs) {
@@ -19,53 +21,46 @@ function(hljs) {
       'tcl_wordBreakBefore tcltest tclvars tell time tm trace unknown unload unset update '+
       'uplevel upvar variable vwait while',
     contains: [
-      {
-        className: 'comment',
-        variants: [
-          {begin: ';[ \\t]*#', end: '$'},
-          {begin: '^[ \\t]*#', end: '$'}
-        ]
-      },
+      hljs.COMMENT(';[ \\t]*#', '$'),
+      hljs.COMMENT('^[ \\t]*#', '$'),
       {
         beginKeywords: 'proc',
         end: '[\\{]',
         excludeEnd: true,
         contains: [
           {
-            className: 'symbol',
+            className: 'title',
             begin: '[ \\t\\n\\r]+(::)?[a-zA-Z_]((::)?[a-zA-Z0-9_])*',
             end: '[ \\t\\n\\r]',
             endsWithParent: true,
-            excludeEnd: true,
+            excludeEnd: true
           }
         ]
       },
       {
-        className: 'variable',
         excludeEnd: true,
         variants: [
           {
             begin: '\\$(\\{)?(::)?[a-zA-Z_]((::)?[a-zA-Z0-9_])*\\(([a-zA-Z0-9_])*\\)',
-            end: '[^a-zA-Z0-9_\\}\\$]',
+            end: '[^a-zA-Z0-9_\\}\\$]'
           },
           {
             begin: '\\$(\\{)?(::)?[a-zA-Z_]((::)?[a-zA-Z0-9_])*',
-            end: '(\\))?[^a-zA-Z0-9_\\}\\$]',
-          },
+            end: '(\\))?[^a-zA-Z0-9_\\}\\$]'
+          }
         ]
       },
       {
         className: 'string',
         contains: [hljs.BACKSLASH_ESCAPE],
         variants: [
-          hljs.inherit(hljs.APOS_STRING_MODE, {illegal: null}),
           hljs.inherit(hljs.QUOTE_STRING_MODE, {illegal: null})
         ]
       },
       {
         className: 'number',
         variants: [hljs.BINARY_NUMBER_MODE, hljs.C_NUMBER_MODE]
-      },
+      }
     ]
   }
 }

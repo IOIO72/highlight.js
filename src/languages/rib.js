@@ -2,6 +2,8 @@
 Language: RenderMan RIB
 Author: Konstantin Evdokimenko <qewerty@gmail.com>
 Contributors: Shuen-Huei Guan <drake.guan@gmail.com>
+Website: https://renderman.pixar.com/resources/RenderMan_20/ribBinding.html
+Category: graphics
 */
 
 function(hljs) {

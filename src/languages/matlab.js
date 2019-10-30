@@ -1,24 +1,22 @@
 /*
 Language: Matlab
 Author: Denis Bardadym <bardadymchik@gmail.com>
-Contributors: Eugene Nizhibitsky <nizhibitsky@ya.ru>
+Contributors: Eugene Nizhibitsky <nizhibitsky@ya.ru>, Egor Rogov <e.rogov@postgrespro.ru>
+Website: https://www.mathworks.com/products/matlab.html
+Category: scientific
 */
 
+/*
+  Formal syntax is not published, helpful link:
+  https://github.com/kornilova-l/matlab-IntelliJ-plugin/blob/master/src/main/grammar/Matlab.bnf
+*/
 function(hljs) {
-  var COMMON_CONTAINS = [
-    hljs.C_NUMBER_MODE,
-    {
-      className: 'string',
-      begin: '\'', end: '\'',
-      contains: [hljs.BACKSLASH_ESCAPE, {begin: '\'\''}]
-    }
-  ];
+
+  var TRANSPOSE_RE = '(\'|\\.\')+';
   var TRANSPOSE = {
     relevance: 0,
     contains: [
-      {
-        className: 'operator', begin: /'['\.]*/
-      }
+      { begin: TRANSPOSE_RE }
     ]
   };
 
@@ -41,7 +39,9 @@ function(hljs) {
         'triu fliplr flipud flipdim rot90 find sub2ind ind2sub bsxfun ndgrid permute ipermute ' +
         'shiftdim circshift squeeze isscalar isvector ans eps realmax realmin pi i inf nan ' +
         'isnan isinf isfinite j why compan gallery hadamard hankel hilb invhilb magic pascal ' +
-        'rosser toeplitz vander wilkinson'
+        'rosser toeplitz vander wilkinson max min nanmax nanmin mean nanmean type table ' +
+        'readtable writetable sortrows sort figure plot plot3 scatter scatter3 cellfun ' +
+        'legend intersect ismember procrustes hold num2cell '
     },
     illegal: '(//|"|#|/\\*|\\s+/\\w+)',
     contains: [
@@ -51,49 +51,53 @@ function(hljs) {
         contains: [
           hljs.UNDERSCORE_TITLE_MODE,
           {
-              className: 'params',
-              begin: '\\(', end: '\\)'
-          },
-          {
-              className: 'params',
-              begin: '\\[', end: '\\]'
+            className: 'params',
+            variants: [
+              {begin: '\\(', end: '\\)'},
+              {begin: '\\[', end: '\\]'}
+            ]
           }
         ]
       },
       {
-        begin: /[a-zA-Z_][a-zA-Z_0-9]*'['\.]*/,
-        returnBegin: true,
+        className: 'built_in',
+        begin: /true|false/,
         relevance: 0,
+        starts: TRANSPOSE
+      },
+      {
+        begin: '[a-zA-Z][a-zA-Z_0-9]*' + TRANSPOSE_RE,
+        relevance: 0
+      },
+      {
+        className: 'number',
+        begin: hljs.C_NUMBER_RE,
+        relevance: 0,
+        starts: TRANSPOSE
+      },
+      {
+        className: 'string',
+        begin: '\'', end: '\'',
         contains: [
-          {begin: /[a-zA-Z_][a-zA-Z_0-9]*/, relevance: 0},
-          TRANSPOSE.contains[0]
-        ]
+          hljs.BACKSLASH_ESCAPE,
+          {begin: '\'\''}]
       },
       {
-        className: 'matrix',
-        begin: '\\[', end: '\\]',
-        contains: COMMON_CONTAINS,
+        begin: /\]|}|\)/,
         relevance: 0,
         starts: TRANSPOSE
       },
       {
-        className: 'cell',
-        begin: '\\{', end: /\}/,
-        contains: COMMON_CONTAINS,
-        relevance: 0,
-        illegal: /:/,
+        className: 'string',
+        begin: '"', end: '"',
+        contains: [
+          hljs.BACKSLASH_ESCAPE,
+          {begin: '""'}
+        ],
         starts: TRANSPOSE
       },
-      {
-        // transpose operators at the end of a function call
-        begin: /\)/,
-        relevance: 0,
-        starts: TRANSPOSE
-      },
-      {
-        className: 'comment',
-        begin: '\\%', end: '$'
-      }
-    ].concat(COMMON_CONTAINS)
+      hljs.COMMENT('^\\s*\\%\\{\\s*$', '^\\s*\\%\\}\\s*$'),
+      hljs.COMMENT('\\%', '$')
+    ]
   };
 }

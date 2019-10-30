@@ -1,6 +1,8 @@
 /*
-Language: Axapta
+Language: Microsoft Axapta (now Dynamics 365)
 Author: Dmitri Roudakov <dmitri@roudakov.ru>
+Website: https://dynamics.microsoft.com/en-us/ax-overview/
+Category: enterprise
 */
 
 function(hljs) {
@@ -18,7 +20,7 @@ function(hljs) {
       hljs.QUOTE_STRING_MODE,
       hljs.C_NUMBER_MODE,
       {
-        className: 'preprocessor',
+        className: 'meta',
         begin: '#', end: '$'
       },
       {

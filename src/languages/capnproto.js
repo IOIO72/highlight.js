@@ -2,6 +2,8 @@
 Language: Cap’n Proto
 Author: Oleg Efimov <efimovov@gmail.com>
 Description: Cap’n Proto message definition format
+Website: https://capnproto.org/capnp-tool.html
+Category: protocols
 */
 
 function(hljs) {
@@ -21,12 +23,12 @@ function(hljs) {
       hljs.NUMBER_MODE,
       hljs.HASH_COMMENT_MODE,
       {
-        className: 'shebang',
+        className: 'meta',
         begin: /@0x[\w\d]{16};/,
         illegal: /\n/
       },
       {
-        className: 'number',
+        className: 'symbol',
         begin: /@\d+\b/
       },
       {

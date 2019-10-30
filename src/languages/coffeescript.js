@@ -3,7 +3,8 @@ Language: CoffeeScript
 Author: Dmytrii Nagirniak <dnagir@gmail.com>
 Contributors: Oleg Efimov <efimovov@gmail.com>, Cédric Néhémie <cedric.nehemie@gmail.com>
 Description: CoffeeScript is a programming language that transcompiles to JavaScript. For info about language see http://coffeescript.org/
-Category: common
+Category: common, scripting
+Website: https://coffeescript.org
 */
 
 function(hljs) {
@@ -11,7 +12,7 @@ function(hljs) {
     keyword:
       // JS keywords
       'in if for while finally new do return else break catch instanceof throw try this ' +
-      'switch continue typeof delete debugger super ' +
+      'switch continue typeof delete debugger super yield import export from as default await ' +
       // Coffee keywords
       'then unless until loop of by when and or is isnt not',
     literal:
@@ -19,9 +20,6 @@ function(hljs) {
       'true false null undefined ' +
       // Coffee literals
       'yes no on off',
-    reserved:
-      'case default function var void with const let enum export import native ' +
-      '__hasProp __extends __slice __bind __indexOf',
     built_in:
       'npm require console print module global window document'
   };
@@ -69,18 +67,24 @@ function(hljs) {
         {
           // regex can't start with space to parse x / 2 / 3 as two divisions
           // regex can't start with *, and it supports an "illegal" in the main mode
-          begin: /\/(?![ *])(\\\/|.)*?\/[gim]*(?=\W|$)/
+          begin: /\/(?![ *])(\\\/|.)*?\/[gim]*(?=\W)/
         }
       ]
     },
     {
-      className: 'property',
-      begin: '@' + JS_IDENT_RE
+      begin: '@' + JS_IDENT_RE // relevance booster
     },
     {
-      begin: '`', end: '`',
+      subLanguage: 'javascript',
       excludeBegin: true, excludeEnd: true,
-      subLanguage: 'javascript'
+      variants: [
+        {
+          begin: '```', end: '```',
+        },
+        {
+          begin: '`', end: '`',
+        }
+      ]
     }
   ];
   SUBST.contains = EXPRESSIONS;
@@ -104,11 +108,7 @@ function(hljs) {
     keywords: KEYWORDS,
     illegal: /\/\*/,
     contains: EXPRESSIONS.concat([
-      {
-        className: 'comment',
-        begin: '###', end: '###',
-        contains: [hljs.PHRASAL_WORDS_MODE]
-      },
+      hljs.COMMENT('###', '###'),
       hljs.HASH_COMMENT_MODE,
       {
         className: 'function',
@@ -145,7 +145,6 @@ function(hljs) {
         ]
       },
       {
-        className: 'attribute',
         begin: JS_IDENT_RE + ':', end: ':',
         returnBegin: true, returnEnd: true,
         relevance: 0

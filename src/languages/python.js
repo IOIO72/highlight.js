@@ -1,11 +1,32 @@
 /*
 Language: Python
+Description: Python is an interpreted, object-oriented, high-level programming language with dynamic semantics.
+Website: https://www.python.org
 Category: common
 */
 
 function(hljs) {
+  var KEYWORDS = {
+    keyword:
+      'and elif is global as in if from raise for except finally print import pass return ' +
+      'exec else break not with class assert yield try while continue del or def lambda ' +
+      'async await nonlocal|10',
+    built_in:
+      'Ellipsis NotImplemented',
+    literal: 'False None True'
+  };
   var PROMPT = {
-    className: 'prompt',  begin: /^(>>>|\.\.\.) /
+    className: 'meta',  begin: /^(>>>|\.\.\.) /
+  };
+  var SUBST = {
+    className: 'subst',
+    begin: /\{/, end: /\}/,
+    keywords: KEYWORDS,
+    illegal: /#/
+  };
+  var LITERAL_BRACKET = {
+    begin: /\{\{/,
+    relevance: 0
   };
   var STRING = {
     className: 'string',
@@ -13,13 +34,21 @@ function(hljs) {
     variants: [
       {
         begin: /(u|b)?r?'''/, end: /'''/,
-        contains: [PROMPT],
+        contains: [hljs.BACKSLASH_ESCAPE, PROMPT],
         relevance: 10
       },
       {
         begin: /(u|b)?r?"""/, end: /"""/,
-        contains: [PROMPT],
+        contains: [hljs.BACKSLASH_ESCAPE, PROMPT],
         relevance: 10
+      },
+      {
+        begin: /(fr|rf|f)'''/, end: /'''/,
+        contains: [hljs.BACKSLASH_ESCAPE, PROMPT, LITERAL_BRACKET, SUBST]
+      },
+      {
+        begin: /(fr|rf|f)"""/, end: /"""/,
+        contains: [hljs.BACKSLASH_ESCAPE, PROMPT, LITERAL_BRACKET, SUBST]
       },
       {
         begin: /(u|r|ur)'/, end: /'/,
@@ -34,6 +63,14 @@ function(hljs) {
       },
       {
         begin: /(b|br)"/, end: /"/
+      },
+      {
+        begin: /(fr|rf|f)'/, end: /'/,
+        contains: [hljs.BACKSLASH_ESCAPE, LITERAL_BRACKET, SUBST]
+      },
+      {
+        begin: /(fr|rf|f)"/, end: /"/,
+        contains: [hljs.BACKSLASH_ESCAPE, LITERAL_BRACKET, SUBST]
       },
       hljs.APOS_STRING_MODE,
       hljs.QUOTE_STRING_MODE
@@ -50,35 +87,37 @@ function(hljs) {
   var PARAMS = {
     className: 'params',
     begin: /\(/, end: /\)/,
-    contains: ['self', PROMPT, NUMBER, STRING]
+    contains: ['self', PROMPT, NUMBER, STRING, hljs.HASH_COMMENT_MODE]
   };
-  var FUNC_CLASS_PROTO = {
-    end: /:/,
-    illegal: /[${=;\n]/,
-    contains: [hljs.UNDERSCORE_TITLE_MODE, PARAMS]
-  };
-
+  SUBST.contains = [STRING, NUMBER, PROMPT];
   return {
-    aliases: ['py', 'gyp'],
-    keywords: {
-      keyword:
-        'and elif is global as in if from raise for except finally print import pass return ' +
-        'exec else break not with class assert yield try while continue del or def lambda ' +
-        'nonlocal|10 None True False',
-      built_in:
-        'Ellipsis NotImplemented'
-    },
-    illegal: /(<\/|->|\?)/,
+    aliases: ['py', 'gyp', 'ipython'],
+    keywords: KEYWORDS,
+    illegal: /(<\/|->|\?)|=>/,
     contains: [
       PROMPT,
       NUMBER,
       STRING,
       hljs.HASH_COMMENT_MODE,
-      hljs.inherit(FUNC_CLASS_PROTO, {className: 'function', beginKeywords: 'def', relevance: 10}),
-      hljs.inherit(FUNC_CLASS_PROTO, {className: 'class', beginKeywords: 'class'}),
       {
-        className: 'decorator',
-        begin: /@/, end: /$/
+        variants: [
+          {className: 'function', beginKeywords: 'def'},
+          {className: 'class', beginKeywords: 'class'}
+        ],
+        end: /:/,
+        illegal: /[${=;\n,]/,
+        contains: [
+          hljs.UNDERSCORE_TITLE_MODE,
+          PARAMS,
+          {
+            begin: /->/, endsWithParent: true,
+            keywords: 'None'
+          }
+        ]
+      },
+      {
+        className: 'meta',
+        begin: /^[\t ]*@/, end: /$/
       },
       {
         begin: /\b(print|exec)\(/ // don’t highlight keywords-turned-functions in Python 3

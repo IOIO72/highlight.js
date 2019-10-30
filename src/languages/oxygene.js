@@ -1,7 +1,8 @@
 /*
 Language: Oxygene
 Author: Carlo Kok <ck@remobjects.com>
-Description: Language definition for RemObjects Oxygene (http://www.remobjects.com)
+Description: Oxygene is built on the foundation of Object Pascal, revamped and extended to be a modern language for the twenty-first century.
+Website: https://www.elementscompiler.com/elements/default.aspx
 */
 
 function(hljs) {
@@ -13,16 +14,20 @@ function(hljs) {
     'record reintroduce remove repeat require result reverse sealed select self sequence set shl shr skip static step soft take then to true try tuple '+
     'type union unit unsafe until uses using var virtual raises volatile where while with write xor yield await mapped deprecated stdcall cdecl pascal '+
     'register safecall overload library platform reference packed strict published autoreleasepool selector strong weak unretained';
-  var CURLY_COMMENT =  {
-    className: 'comment',
-    begin: '{', end: '}',
-    relevance: 0
-  };
-  var PAREN_COMMENT = {
-    className: 'comment',
-    begin: '\\(\\*', end: '\\*\\)',
-    relevance: 10
-  };
+  var CURLY_COMMENT =  hljs.COMMENT(
+    '{',
+    '}',
+    {
+      relevance: 0
+    }
+  );
+  var PAREN_COMMENT = hljs.COMMENT(
+    '\\(\\*',
+    '\\*\\)',
+    {
+      relevance: 10
+    }
+  );
   var STRING = {
     className: 'string',
     begin: '\'', end: '\'',
@@ -48,6 +53,7 @@ function(hljs) {
   };
   return {
     case_insensitive: true,
+    lexemes: /\.?\w+/,
     keywords: OXYGENE_KEYWORDS,
     illegal: '("|\\$[G-Zg-z]|\\/\\*|</|=>|->)',
     contains: [

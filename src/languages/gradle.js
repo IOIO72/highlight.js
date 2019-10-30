@@ -1,7 +1,8 @@
 /*
 Language: Gradle
+Description: Gradle is an open-source build automation tool focused on flexibility and performance.
+Website: https://gradle.org
 Author: Damian Mee <mee.damian@gmail.com>
-Website: http://meeDamian.com
 */
 
 function(hljs) {
@@ -27,7 +28,7 @@ function(hljs) {
         'times toInteger toList tokenize upto waitForOrKill withPrintWriter withReader ' +
         'withStream withWriter withWriterAppend write writeLine'
     },
-    contains: [    
+    contains: [
       hljs.C_LINE_COMMENT_MODE,
       hljs.C_BLOCK_COMMENT_MODE,
       hljs.APOS_STRING_MODE,
